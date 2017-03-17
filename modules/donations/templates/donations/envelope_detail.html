@@ -16,7 +16,12 @@
                            </div>
                        </div>
 
-                       <a href="javascript:history.back()">Go Back</a>
+                       {% if user.is_authenticated %}
+                           <a class="btn btn-default" href="{% url 'envelope_edit' pk=e.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                       {% endif %}
+
+                       <br /><br />
+                       <a href="/">Go Back</a>
 
 {% endblock %}
 

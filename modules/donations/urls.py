@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.donations, name='donations'),
     url(r'^envelope/(?P<pk>\d+)/$', views.envelope_detail, name='envelope_detail'),
+    url(r'^envelope/new/$', views.envelope_new, name='envelope_new'),
+    url(r'^envelope/(?P<pk>\d+)/edit/$', views.envelope_edit, name='envelope_edit'),
 ]

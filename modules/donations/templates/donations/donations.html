@@ -3,6 +3,17 @@
         <title>UWEA - Donations</title>
     </head>
     <body>
-      <h1>It worked</div>
+      <h1>Envelopes</h1>
+
+      <div>
+      {% for e in envelopes %}
+            {{ e.name }} <br />
+            {{ e.belongs_to }} <br />
+            {{ e.created_on }} <br />
+            {{ e.last_modified_on }} <br />
+            <br />
+      {% endfor %}
+      </div>
+
     </body>
 </html>

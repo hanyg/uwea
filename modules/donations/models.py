@@ -51,6 +51,7 @@ class Pledge(models.Model):
 
 class Envelope(models.Model):
     name = models.CharField(max_length=100)
+    desc = models.CharField(max_length=1000)
     belongs_to = models.ForeignKey('Campaign', null=False)
     created_on = models.DateField(default=datetime.now,null=False)
     last_modified_on = models.DateField(default=datetime.now,null=False)

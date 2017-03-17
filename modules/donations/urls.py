@@ -20,4 +20,5 @@ import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.donations, name='donations'),
+    url(r'^envelope/(?P<pk>\d+)/$', views.envelope_detail, name='envelope_detail'),
 ]

@@ -2,7 +2,6 @@
 
 {% block content %}
 
-                   {% for e in envelopes %}
                        <div class="envelope">
                            <div class="date">
                                <p>Created On: {{ e.created_on }}</p>
@@ -11,11 +10,13 @@
                                <p>Last Modified On: {{ e.last_modified_on }}</p>
                            </div>
                            <p>Campaign: {{ e.belongs_to }}</p>
-                           <h1><a href="{% url 'envelope_detail' pk=e.pk %}">{{ e.name }}</a></h1>
+                           <h1>{{ e.name }}</h1>
                            <div>
                                  <p>{{ e.desc|linebreaksbr }}</p>
                            </div>
                        </div>
-                   {% endfor %}
+
+                       <a href="javascript:history.back()">Go Back</a>
 
 {% endblock %}
+

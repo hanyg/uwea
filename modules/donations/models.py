@@ -6,6 +6,13 @@ from django.contrib.contenttypes.fields import (GenericRelation,
 from django.contrib.auth.models import User
 import datetime
 
+
+PAYMENT_OPTIONS = (
+    (1, 'Monthly'),
+    (2, 'Weekly'),
+    (3, 'Annually'),
+)
+
 class BaseData(models.Model):
     created_by = models.ForeignKey(User, editable=False, null=True)
     created_on = models.DateField(auto_now_add=True, null=False)
@@ -46,6 +53,14 @@ class Pledge(BaseData):
     belongs_to = models.ForeignKey('Envelope', null=False)
     is_from_contact = models.ForeignKey('Contact', null=True)
     is_from_company = models.ForeignKey('Company', null=True)
+    payments = models.IntegerField(default=1)
+    payments_cycle = models.IntegerField(choices=PAYMENT_OPTIONS, default=1)
+    amount = models.DecimalField(default=0.0, max_digits=6, decimal_places=2)
+    total = models.DecimalField(default=0.0, max_digits=6, decimal_places=2)
+    recurring = models.BooleanField(default=False)
+    start_date = models.DateField(default=datetime.date.today,null=False)
+    end_date = models.DateField(default=datetime.date.today,null=False)
+
     def __unicode__(self):
         return self.name
 

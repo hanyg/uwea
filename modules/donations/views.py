@@ -3,18 +3,18 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
-from .models import Envelope
-from .forms import EnvelopeForm
+from .models import Envelope, Campaign
+from .forms import EnvelopeForm, CampaignForm
 
 @login_required
-def donations(request):
+def envelopes(request):
     envelopes = Envelope.objects.order_by('created_on')
-    return render(request, 'donations/donations.html', { 'envelopes': envelopes })
+    return render(request, 'envelopes/envelopes.html', { 'envelopes': envelopes })
 
 @login_required
 def envelope_detail(request, pk):
     e = get_object_or_404(Envelope, pk=pk)
-    return render(request, 'donations/envelope_detail.html', {'e': e})
+    return render(request, 'envelopes/envelope_detail.html', {'e': e})
 
 @login_required
 def envelope_new(request):
@@ -29,7 +29,7 @@ def envelope_new(request):
             return redirect('envelope_detail', pk=e.pk)
     else:
         form = EnvelopeForm()
-    return render(request, 'donations/envelope_edit.html', {'form': form})
+    return render(request, 'envelopes/envelope_edit.html', {'form': form})
 
 @login_required
 def envelope_edit(request, pk):
@@ -45,4 +45,45 @@ def envelope_edit(request, pk):
             return redirect('envelope_detail', pk=envelope.pk)
     else:
         form = EnvelopeForm(instance=envelope)
-    return render(request, 'donations/envelope_edit.html', {'form': form})
+    return render(request, 'envelopes/envelope_edit.html', {'form': form})
+
+@login_required
+def campaigns(request):
+    campaigns = Campaign.objects.order_by('created_on')
+    return render(request, 'campaigns/campaigns.html', { 'campaigns': campaigns })
+
+@login_required
+def campaign_detail(request, pk):
+    c = get_object_or_404(Campaign, pk=pk)
+    return render(request, 'campaigns/campaign_detail.html', {'c': c})
+
+@login_required
+def campaign_new(request):
+    if request.method == "POST":
+        form = EnvelopeForm(request.POST)
+        if form.is_valid():
+            c = form.save(commit=False)
+            c.created_by = request.user
+            c.created_on = timezone.now()
+            c.last_modified_on = timezone.now()
+            c.save()
+            return redirect('campaign_detail', pk=c.pk)
+    else:
+        form = CampaignForm()
+    return render(request, 'campaigns/campaign_edit.html', {'form': form})
+
+@login_required
+def campaign_edit(request, pk):
+    campaign = get_object_or_404(Campaign, pk=pk)
+    if request.method == "POST":
+        form = CampaignForm(request.POST, instance=campaign)
+        if form.is_valid():
+            campaign = form.save(commit=False)
+            campaign.created_by = request.user
+            campaign.created_on = timezone.now()
+            campaign.last_modified_on = timezone.now()
+            campaign.save()
+            return redirect('campaign_detail', pk=campaign.pk)
+    else:
+        form = CampaignForm(instance=campaign)
+    return render(request, 'campaigns/campaign_edit.html', {'form': form})

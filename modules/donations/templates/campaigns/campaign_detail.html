@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+                      <div class="envelope">
+                           <p>Name: {{ c.name }}</p>
+                           <p>Description: {{ c.desc|linebreaksbr }}</p>
+                           <p>Title: {{ c.title|linebreaksbr }}</p>
+                           <p>Notes: {{ c.notes|linebreaksbr }}</p>
+                           <div class="date">
+                               <p>Campaign Starts: {{ c.start_date }} Ends: {{ c.end_date }}</p>
+                           </div>
+                           <div class="date">
+                               <p>Created On: {{ c.created_on }}</p>
+                           </div>
+                           <div class="date">
+                               <p>Last Modified On: {{ c.last_modified_on }}</p>
+                           </div>
+                           <a href="{% url 'campaign_detail' pk=c.pk %}">{{ c.name }}</a>
+                       </div>
+
+                       {% if user.is_authenticated %}
+                           <a class="btn btn-default" href="{% url 'campaign_edit' pk=c.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                       {% endif %}
+
+                       <br /><br />
+                       <a href="#" onclick="history.go(-1)">Go Back</a>
+
+{% endblock %}
+

@@ -1,0 +1,9 @@
+{% extends 'main/base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+   {% render_table campaigns %}
+
+   <a href="#" onclick="history.go(-1)">Go Back</a>
+
+{% endblock %}

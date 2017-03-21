@@ -2,14 +2,19 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-
+from django_tables2 import RequestConfig
+from .filters import CampaignFilter, EnvelopeFilter
+from .tables import CampaignTable, EnvelopeTable
 from .models import Envelope, Campaign
 from .forms import EnvelopeForm, CampaignForm
 
 @login_required
 def envelopes(request):
-    envelopes = Envelope.objects.order_by('created_on')
-    return render(request, 'envelopes/envelopes.html', { 'envelopes': envelopes })
+    #envelopes = Envelope.objects.order_by('created_on')
+    filter = EnvelopeFilter(request.GET, queryset=Envelope.objects.all())
+    table = EnvelopeTable(filter.qs)
+    RequestConfig(request, paginate={'per_page': 25}).configure(table)
+    return render(request, 'envelopes/envelopes.html', { 'table': table, 'filter': filter })
 
 @login_required
 def envelope_detail(request, pk):
@@ -49,8 +54,11 @@ def envelope_edit(request, pk):
 
 @login_required
 def campaigns(request):
-    campaigns = Campaign.objects.order_by('created_on')
-    return render(request, 'campaigns/campaigns.html', { 'campaigns': campaigns })
+    #campaigns = Campaign.objects.order_by('created_on')
+    filter = CampaignFilter(request.GET, queryset=Campaign.objects.all())
+    table = CampaignTable(filter.qs)
+    RequestConfig(request, paginate={'per_page': 25}).configure(table)
+    return render(request, 'campaigns/campaigns.html', { 'table': table, 'filter': filter })
 
 @login_required
 def campaign_detail(request, pk):

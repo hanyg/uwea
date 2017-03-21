@@ -1,9 +1,26 @@
 {% extends 'main/base.html' %}
 {% load render_table from django_tables2 %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-   {% render_table campaigns %}
+<div class="wrapper">
 
-   <a href="#" onclick="history.go(-1)">Go Back</a>
 
+  <div class="left">
+    <h2>Active Campaigns</h2>
+
+    {% render_table table %}
+  </div>    
+
+  <div class="right">
+    <h2>Filter Campaigns</h2>
+
+    <form action="" method="get">
+        {{ filter.form | crispy }}
+        <br /><br />
+        <input type="submit" value="Filter"/>
+    </form>
+
+
+  </div>
+</div>
 {% endblock %}

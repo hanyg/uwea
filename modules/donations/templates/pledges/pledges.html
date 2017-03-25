@@ -12,23 +12,24 @@
         $("#filter_icon").removeClass("glyphicon-circle-arrow-left").addClass("glyphicon-circle-arrow-right");
   }
 </script>
+
 <div class="wrapper">
 
-
   <div class="left">
-    <h2>Active Envelopes</h2>
+    <h2>Active Pledges</h2>
 
     {% render_table table %}
 
+
     <br /><br />
     {% if user.is_authenticated %}
-        <a class="btn btn-default" href="{% url 'envelope_new' %}"><span class="glyphicon glyphicon-plus"></span></a>
+        <a class="btn btn-default" href="{% url 'pledge_new' %}"><span class="glyphicon glyphicon-plus"></span></a>
     {% endif %}
     <a class="btn btn-default" onclick='toggle_filter();'><span id="filter_icon" class="glyphicon glyphicon-circle-arrow-right"></span></a>
   </div>
 
-  <div id="filters" class="right" style="display:none;">
-    <h2>Filter Envelopes</h2>
+<div id="filters" class="right" style="display:block;">
+    <h2>Filter Campaigns</h2>
 
     <form action="" method="get">
         {{ filter.form | crispy }}
@@ -39,4 +40,7 @@
 
   </div>
 </div>
+
+</div>
+
 {% endblock %}

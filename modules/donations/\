@@ -1,4 +1,4 @@
-from django.conf.urls import url, include
+from django.conf.urls import url
 import views
 
 urlpatterns = [
@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^campaign/new/$', views.campaign_new, name='campaign_new'),
     url(r'^campaign/(?P<pk>\d+)/edit/$', views.campaign_edit, name='campaign_edit'),
 
-    url(r'^pledges(?:/(?P<pk>\d+)/)?$', views.pledges, name='pledges'),
+    url(r'^pledges$', views.pledges, name='pledges'),
     url(r'^pledge/(?P<pk>\d+)/$', views.pledge_detail, name='pledge_detail'),
     url(r'^pledge/new/$', views.pledge_new, name='pledge_new'),
     url(r'^pledge/(?P<pk>\d+)/edit/$', views.pledge_edit, name='pledge_edit'),

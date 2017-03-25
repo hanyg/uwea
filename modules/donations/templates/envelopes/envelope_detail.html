@@ -3,7 +3,7 @@
 {% block content %}
 
                        <div class="envelope">
-                           <p>{{ e.name }}</p>
+                           <a href="{% url 'pledges' pk=e.pk %}">Pledges belonging to envelope '{{ e.name }}'</a>
                            <div>
                                  <p>{{ e.desc|linebreaksbr }}</p>
                            </div>

@@ -1,3 +1,20 @@
+.wrapper {
+     width: 100%;
+     margin: 20 auto;
+}
+.left, .right {
+    float: left;
+    overflow:hidden;
+    display: inline-block;
+}
+ 
+.left {
+     width: 70%;
+}
+.right {
+     width: 30%;
+}
+
 body {
     background:#ffffff;
 }
